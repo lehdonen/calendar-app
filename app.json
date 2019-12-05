@@ -4,6 +4,9 @@
     "slug": "Calendar-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "android": {
+      "package": "fi.tuni.calendarapp"
+    },
     "platforms": [
       "ios",
       "android",

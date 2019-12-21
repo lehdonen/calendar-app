@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, Button, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, Button, View, StyleSheet, TextInput } from 'react-native';
 
 export default class Calendar extends React.Component {
     months = ["January", "February", "March", "April", 
@@ -9,7 +9,34 @@ export default class Calendar extends React.Component {
     numberOfDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     state = {
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        notes: [],
+        reminders: [],
+        note: "text or time"
+    }
+
+    addNote() {
+        newNotes = this.state.notes
+        obj = {
+            text: this.state.note, 
+            date: this.state.selectedDate
+        }
+        
+        newNotes.push({obj})
+        this.setState({notes: newNotes})
+        console.log(this.state.notes)
+    }
+
+    addReminder() {
+        newReminders = this.state.reminders
+        obj = {
+            time: this.state.note, 
+            date: this.state.selectedDate
+        }
+        
+        newReminders.push({obj})
+        this.setState({reminders: newReminders})
+        console.log(this.state.reminders)
     }
 
     viewArray() {
@@ -20,7 +47,7 @@ export default class Calendar extends React.Component {
         var daysInAMonth = this.numberOfDays[month];
         var counter = 1;
 
-        for (var row = 1; row < 7; row++) {
+        for (var row = 1; row < 6; row++) {
             array[row] = [];
 
             for (var col = 0; col < 7; col++) {
@@ -87,6 +114,13 @@ export default class Calendar extends React.Component {
                 <Button title="--->            ---" onPress={() => this.changeMonth(+1)}/>
             </View>
             {rows}
+            <TextInput
+            style={{ height: 50, borderColor: 'black', borderWidth: 1 }}
+            onChangeText={(note) => this.setState({note})}
+            value={this.state.note}
+            />
+            <Button title="Add Note" onPress={() => this.addNote()}/>
+            <Button title="Add Reminder" onPress={() => this.addReminder()}/>
         </View>
       );
     }
